@@ -25,7 +25,6 @@
 	"homepage": "https://github.com/EmJee1/fluxxo-core#readme",
 	"dependencies": {
 		"bcrypt": "^5.0.1",
-		"dotenv": "^10.0.0",
 		"ejs": "^3.1.6",
 		"mongo-seeding": "^3.7.0",
 		"unique-names-generator": "^4.5.0"

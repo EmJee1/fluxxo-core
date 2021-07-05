@@ -1,8 +1,5 @@
 import { DeepPartial } from 'mongo-seeding/dist/common'
 import { Seeder, SeederConfig } from 'mongo-seeding'
-import dotenv from 'dotenv'
-
-dotenv.config()
 
 class DBSeeder {
 	private Seeder: Seeder
