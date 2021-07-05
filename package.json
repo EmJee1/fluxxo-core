@@ -1,0 +1,41 @@
+{
+	"name": "fluxxo-core",
+	"version": "1.0.0",
+	"description": "Core helpers for the Fluxxo framework",
+	"main": "dist/index.js",
+	"types": "dist/index.d.ts",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/EmJee1/fluxxo-core.git"
+	},
+	"keywords": [
+		"Fluxxo",
+		"TypeScript",
+		"Template",
+		"Node"
+	],
+	"author": "EmJee1",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/EmJee1/fluxxo-core/issues"
+	},
+	"homepage": "https://github.com/EmJee1/fluxxo-core#readme",
+	"dependencies": {
+		"bcrypt": "^5.0.1",
+		"dotenv": "^10.0.0",
+		"ejs": "^3.1.6",
+		"mongo-seeding": "^3.7.0",
+		"unique-names-generator": "^4.5.0"
+	},
+	"devDependencies": {
+		"@types/bcrypt": "^5.0.0",
+		"@types/bull": "^3.15.1",
+		"@types/ejs": "^3.0.6",
+		"@types/mongodb": "^3.6.19",
+		"@types/node": "^16.0.0",
+		"@types/nodemailer": "^6.4.2"
+	}
+}
