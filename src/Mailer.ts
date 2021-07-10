@@ -1,6 +1,7 @@
 import ejs from 'ejs'
 import { Queue } from 'bull'
 import { SentMessageInfo, Transporter } from 'nodemailer'
+import { MailOptions } from 'nodemailer/lib/smtp-transport'
 
 interface MailContentItem {
 	content: string
@@ -17,12 +18,7 @@ class Mailer {
 	private _mailContent: MailContentItem[] = []
 	private _queue: null | Queue<any> = null
 	private _transport: Transporter<SentMessageInfo>
-	private _mailOptions: {
-		from?: string
-		to?: string
-		subject?: string
-		html?: string
-	} = {}
+	private _mailOptions: MailOptions = {}
 
 	constructor(user: User) {
 		this._user = user
@@ -56,30 +52,35 @@ class Mailer {
 		return this
 	}
 
-	public sendMail(
-		transport: Transporter<SentMessageInfo>,
+	public sendMail({
+		transport,
+		templateName,
+		templateDir,
+	}: {
+		transport?: Transporter<SentMessageInfo>
 		templateName?: string
-	): void {
+		templateDir?: string
+	}): void {
 		if (!this._mailOptions.subject || !this._user || !transport) return
 
 		const template = templateName || 'email.template.ejs'
 
 		ejs
-			.renderFile(`dist/messages/templates/${template}`, {
+			.renderFile(templateDir || `dist/messages/templates/${template}`, {
 				content: this._mailContent,
 			})
 			.then((html): any => {
 				this._mailOptions.html = html
 
 				if (this._queue)
-					return this._queue.add({
-						mailOptions: this._mailOptions,
-						transport,
+					return this._queue.add({ mailOptions: this._mailOptions })
+
+				if (transport)
+					return transport.sendMail(this._mailOptions, err => {
+						if (err) console.error(`Nodemailer error: ${err}`)
 					})
 
-				return transport.sendMail(this._mailOptions, err => {
-					if (err) console.error(`Nodemailer error: ${err}`)
-				})
+				console.error('No queue or transport was provided')
 			})
 			.catch(console.error)
 	}
