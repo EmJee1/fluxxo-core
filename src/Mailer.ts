@@ -61,7 +61,7 @@ class Mailer {
 		templateName?: string
 		templateDir?: string
 	}): void {
-		if (!this._mailOptions.subject || !this._user || !transport) return
+		if (!this._mailOptions.subject || !this._user) return
 
 		const template = templateName || 'email.template.ejs'
 
